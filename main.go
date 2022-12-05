@@ -30,13 +30,13 @@ func main() {
 	}
 
 	ctx := context.Background()
-	cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion("us-east-1") /*config.WithClientLogMode(aws.LogRequestWithBody)*/)
+	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		panic(err)
 	}
 
-	tgtGroup := "arn:aws:elasticloadbalancing:us-east-1:205379741905:targetgroup/cf-proxy-aws-cfn04-tg-https/5629e6c89ae42766"
-	tgtId := "i-0e77c77f4e17f7b00"
+	tgtGroup := opts.TargetGroup
+	tgtId := opts.Instance
 	tgtDesc := []types.TargetDescription{{Id: &tgtId}}
 
 	lbClient := elasticloadbalancingv2.NewFromConfig(cfg)
